@@ -81,6 +81,7 @@ where
         event: &tracing_core::Event<'_>,
         ctx: tracing_subscriber::layer::Context<'_, S>,
     ) {
+        println!("on_event {:?}", event.fields());
         self.inner.on_event(event, ctx);
     }
 }
@@ -242,6 +243,7 @@ impl Builder {
     where
         S: Subscriber + for<'span> LookupSpan<'span>,
     {
+        println!("creating layer");
         let tracer = self.tracer()?;
         let inner_layer = tracing_opentelemetry::layer().with_tracer(tracer);
         let layer = AxiomOpenTelemetryLayer::with_inner(inner_layer);
