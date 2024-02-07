@@ -81,7 +81,10 @@ where
         event: &tracing_core::Event<'_>,
         ctx: tracing_subscriber::layer::Context<'_, S>,
     ) {
-        println!("on_event {:?}", event.fields());
+        println!("on_event");
+        println!("fields {:?}", event.fields());
+        println!("metadata {:?}", event.metadata());
+        println!("in a span: {:?}", ctx.lookup_current().is_some());
         self.inner.on_event(event, ctx);
     }
 }
